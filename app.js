@@ -179,7 +179,7 @@ function setupFloatingControls() {
 function closeDrawerOnMobile() { if (innerWidth < 760) document.body.classList.remove('drawer-open'); }
 
 async function init() {
-  data = await fetch('./data/itinerary.json?v=20260906-google-1').then(r => r.json());
+  data = await fetch('./data/itinerary.json?v=20260907-koko-fix-2').then(r => r.json());
   setupFloatingControls();
   setupTabs();
   const key = getApiKey();
