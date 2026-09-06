@@ -2,7 +2,8 @@ let map;
 let data;
 let activeDayNo = 1;
 let markers = [];
-let routeLine = null;
+let routeLines = [];
+let waypointMarkers = [];
 let infoWindow = null;
 
 const GOOGLE_KEY_STORAGE = 'osakaTripGoogleMapsApiKey';
@@ -15,6 +16,12 @@ const typeColor = {
   meal: '#ef4444', snack: '#f97316', shopping: '#8b5cf6', drugstore: '#22c55e',
   convenience: '#06b6d4', transfer: '#64748b', station: '#0ea5e9', arrival: '#2563eb',
   hotel: '#14b8a6', rest: '#84cc16'
+};
+const modeStyle = {
+  walk: { color: '#22c55e', weight: 5, opacity: 0.9, dash: null, label: '도보' },
+  train: { color: '#2563eb', weight: 5, opacity: 0.82, dash: '12 8', label: '전철' },
+  subway: { color: '#7c3aed', weight: 5, opacity: 0.85, dash: '10 7', label: '지하철' },
+  portliner: { color: '#f97316', weight: 5, opacity: 0.86, dash: '8 7', label: '포트라이너' }
 };
 
 function getApiKey() {
@@ -75,7 +82,10 @@ function markerSvg(order, type) {
 function clearMap() {
   markers.forEach(m => m.setMap(null));
   markers = [];
-  if (routeLine) { routeLine.setMap(null); routeLine = null; }
+  waypointMarkers.forEach(m => m.setMap(null));
+  waypointMarkers = [];
+  routeLines.forEach(l => l.setMap(null));
+  routeLines = [];
   document.getElementById('detail').classList.add('hidden');
 }
 
@@ -108,6 +118,82 @@ function showDetail(p) {
   }
 }
 
+function resolvePoint(ref, day) {
+  if (typeof ref === 'string') {
+    const place = day.places.find(p => p.id === ref);
+    if (!place) return null;
+    return { lat: Number(place.lat), lng: Number(place.lng), label: place.title };
+  }
+  if (ref && Number.isFinite(Number(ref.lat)) && Number.isFinite(Number(ref.lng))) {
+    return { lat: Number(ref.lat), lng: Number(ref.lng), label: ref.label || ref.title || '' };
+  }
+  return null;
+}
+
+function renderRouteSegments(day, bounds) {
+  const segments = Array.isArray(day.route_segments) ? day.route_segments : [];
+  if (!segments.length) {
+    const path = day.places.map(p => ({ lat: Number(p.lat), lng: Number(p.lng) }));
+    const line = new google.maps.Polyline({ path, geodesic: true, strokeColor: '#0ea5e9', strokeOpacity: 0.88, strokeWeight: 5, map });
+    routeLines.push(line);
+    return;
+  }
+  segments.forEach(seg => {
+    const from = resolvePoint(seg.from, day);
+    const to = resolvePoint(seg.to, day);
+    if (!from || !to) return;
+    bounds.extend(from);
+    bounds.extend(to);
+    const style = modeStyle[seg.mode] || modeStyle.walk;
+    const line = new google.maps.Polyline({
+      path: [from, to],
+      geodesic: true,
+      strokeColor: style.color,
+      strokeOpacity: style.opacity,
+      strokeWeight: style.weight,
+      icons: style.dash ? [{ icon: { path: 'M 0,-1 0,1', strokeOpacity: 1, scale: 3 }, offset: '0', repeat: style.dash }] : undefined,
+      map
+    });
+    line.addListener('click', () => {
+      if (!infoWindow) return;
+      infoWindow.setContent(`<strong>${style.label}</strong><br>${seg.label || ''}<br>${from.label} → ${to.label}`);
+      infoWindow.setPosition({ lat: (from.lat + to.lat) / 2, lng: (from.lng + to.lng) / 2 });
+      infoWindow.open({ map });
+    });
+    routeLines.push(line);
+  });
+
+  (day.route_waypoints || []).forEach(wp => {
+    if (!wp.id || !wp.id.includes('maguromaro')) return;
+    const marker = new google.maps.Marker({
+      position: { lat: Number(wp.lat), lng: Number(wp.lng) },
+      map,
+      title: wp.title,
+      icon: { path: google.maps.SymbolPath.CIRCLE, fillColor: '#f59e0b', fillOpacity: 0.95, strokeColor: 'white', strokeWeight: 2, scale: 8 },
+      zIndex: 900
+    });
+    marker.addListener('click', () => {
+      if (!infoWindow) return;
+      infoWindow.setContent(`<strong>${wp.title}</strong><br>사용자 메모 기반 임시 경유점`);
+      infoWindow.open({ map, anchor: marker });
+    });
+    waypointMarkers.push(marker);
+    bounds.extend(marker.getPosition());
+  });
+}
+
+function renderRouteLegend(day) {
+  const notes = (day.route_notes || []).map(n => `<li>${n}</li>`).join('');
+  return `<div class="route-legend">
+    <b>실제 이동 반영</b>
+    <div class="legend-row"><span class="swatch walk"></span>도보</div>
+    <div class="legend-row"><span class="swatch portliner"></span>포트라이너</div>
+    <div class="legend-row"><span class="swatch train"></span>전철/한큐/난바 이동</div>
+    <div class="legend-row"><span class="swatch subway"></span>지하철</div>
+    ${notes ? `<ul>${notes}</ul>` : ''}
+  </div>`;
+}
+
 function renderDay(dayNo) {
   activeDayNo = dayNo;
   const day = data.days.find(d => d.day === dayNo);
@@ -122,10 +208,8 @@ function renderDay(dayNo) {
   }
 
   const bounds = new google.maps.LatLngBounds();
-  const path = [];
   day.places.forEach(p => {
     const pos = { lat: Number(p.lat), lng: Number(p.lng) };
-    path.push(pos);
     bounds.extend(pos);
     const marker = new google.maps.Marker({
       position: pos,
@@ -143,7 +227,7 @@ function renderDay(dayNo) {
     step.onclick = () => { map.panTo(pos); map.setZoom(16); showDetail(p); closeDrawerOnMobile(); };
     timeline.appendChild(step);
   });
-  routeLine = new google.maps.Polyline({ path, geodesic: true, strokeColor: '#0ea5e9', strokeOpacity: 0.88, strokeWeight: 5, map });
+  renderRouteSegments(day, bounds);
   map.fitBounds(bounds, { top: 170, right: 40, bottom: 280, left: 40 });
 
   const route = document.createElement('a');
@@ -153,6 +237,9 @@ function renderDay(dayNo) {
   route.rel = 'noopener';
   route.textContent = '이 날짜 전체 Google Maps 길찾기';
   timeline.prepend(route);
+  const legend = document.createElement('div');
+  legend.innerHTML = renderRouteLegend(day);
+  timeline.prepend(legend.firstElementChild);
 }
 
 function setupTabs() {
@@ -179,7 +266,7 @@ function setupFloatingControls() {
 function closeDrawerOnMobile() { if (innerWidth < 760) document.body.classList.remove('drawer-open'); }
 
 async function init() {
-  data = await fetch('./data/itinerary.json?v=20260907-koko-fix-2').then(r => r.json());
+  data = await fetch('./data/itinerary.json?v=20260907-real-route-1').then(r => r.json());
   setupFloatingControls();
   setupTabs();
   const key = getApiKey();
