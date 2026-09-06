@@ -1,0 +1,176 @@
+{
+  "day": 1,
+  "date": "2026-09-05",
+  "notes": "사용자 추가 메모 반영: 사진 업로드 순서가 아니라 영수증/메모 시간 기준으로 재정렬. 11시 고베공항 도착, 포트라이너+한큐선+긴테쓰 경유, KOKO HOTEL Osaka Namba 짐 보관, 15시경 호텔 복귀 및 2시간 휴식, 유카리 센니치마에 후 호텔 복귀를 삽입.",
+  "route_summary": "고베공항 → 산노미야/한큐 경유 → 긴테쓰 닛폰바시 → KOKO HOTEL Osaka Namba → 난바/센니치마에 점심 → 호텔 휴식 → 신사이바시/센바 쇼핑 → 우메다 → 난바/센니치마에 야식 → KOKO HOTEL 복귀",
+  "stops": [
+    {
+      "time": "11:00",
+      "type": "transit_arrival",
+      "name_ko": "고베공항 도착",
+      "name_local": "神戸空港",
+      "evidence": "사용자 메모",
+      "confidence": "confirmed_by_user",
+      "location": {"lat": 34.6342806, "lon": 135.2278505},
+      "map_query": "Kobe Airport Japan",
+      "note": "도착 후 포트라이너 탑승 시작점."
+    },
+    {
+      "time": "11:xx",
+      "type": "transit",
+      "name_ko": "포트라이너 → 한큐선 → 긴테쓰 환승 이동",
+      "name_local": "ポートライナー → 阪急線 → 近鉄線",
+      "evidence": "사용자 메모",
+      "confidence": "confirmed_by_user_time_approx",
+      "location_precision": "route_segment",
+      "note": "정확한 환승역/시각은 미정. 사이트에서는 점선 이동 구간으로 표시 예정."
+    },
+    {
+      "time": "12:xx",
+      "type": "transit_station",
+      "name_ko": "긴테쓰 닛폰바시역 도착",
+      "name_local": "近鉄日本橋駅",
+      "evidence": "사용자 메모",
+      "confidence": "confirmed_by_user_time_approx",
+      "location": {"lat": 34.6669087, "lon": 135.5057003},
+      "map_query": "Kintetsu-Nippombashi Station Osaka",
+      "note": "여기서 내려 KOKO 호텔로 이동."
+    },
+    {
+      "time": "12:xx",
+      "type": "hotel",
+      "name_ko": "KOKO HOTEL Osaka Namba — 짐 맡김",
+      "name_local": "KOKO HOTEL 大阪なんば",
+      "evidence": "사용자 메모",
+      "confidence": "confirmed_by_user_time_approx",
+      "location": {"lat": 34.6580345, "lon": 135.5060448},
+      "map_query": "KOKO HOTEL Osaka Namba Japan",
+      "note": "체크인 전/초기 도착 후 짐 보관. 이후 이즈모 난바까지 도보 이동."
+    },
+    {
+      "time": "14:15",
+      "type": "meal",
+      "name_ko": "이즈모 난바",
+      "name_local": "いづも 難波",
+      "evidence": "영수증 2026/09/05 14:15:49, 금액 ¥8,198",
+      "confidence": "receipt_high",
+      "map_query": "いづも 難波",
+      "note": "KOKO 호텔에서 걸어서 이동. 점심/식사."
+    },
+    {
+      "time": "14:27",
+      "type": "snack_shopping",
+      "name_ko": "551 호라이 본점",
+      "name_local": "551蓬莱 本店",
+      "address": "大阪市中央区難波3-6-3",
+      "evidence": "영수증 2026/09/05 14:27, 금액 ¥500",
+      "confidence": "receipt_very_high",
+      "map_query": "551蓬莱 本店 大阪市中央区難波3-6-3"
+    },
+    {
+      "time": "15:00",
+      "type": "hotel_rest",
+      "name_ko": "KOKO HOTEL Osaka Namba — 복귀/휴식",
+      "name_local": "KOKO HOTEL 大阪なんば",
+      "evidence": "사용자 메모",
+      "confidence": "confirmed_by_user_time_approx",
+      "location": {"lat": 34.6580345, "lon": 135.5060448},
+      "map_query": "KOKO HOTEL Osaka Namba Japan",
+      "duration_estimate": "약 2시간",
+      "note": "15시쯤 호텔 복귀 후 약 2시간 휴식."
+    },
+    {
+      "time": "17:24",
+      "type": "shopping",
+      "name_ko": "다이소 신사이바시스지 2초메점",
+      "name_local": "DAISO 心斎橋筋2丁目店",
+      "evidence": "영수증 2026/09/05 17:24, 금액 ¥438",
+      "confidence": "receipt_high",
+      "map_query": "DAISO 心斎橋筋2丁目店"
+    },
+    {
+      "time": "17:30",
+      "type": "drugstore",
+      "name_ko": "츠루하드럭 신사이바시스지 2초메점",
+      "name_local": "ツルハドラッグ 心斎橋筋2丁目店",
+      "phone": "06-6214-0268",
+      "evidence": "영수증 2026/09/05 17:30, 금액 ¥5,005",
+      "confidence": "receipt_high",
+      "map_query": "ツルハドラッグ 心斎橋筋2丁目店 大阪"
+    },
+    {
+      "time": "18:27",
+      "type": "convenience_store",
+      "name_ko": "로손 큐타로마치 3초메점",
+      "name_local": "LAWSON 久太郎町三丁目店",
+      "address": "大阪府大阪市中央区久太郎町3-4-23",
+      "phone": "06-6245-5252",
+      "evidence": "영수증 2026/09/05 18:27, 금액 ¥183",
+      "confidence": "receipt_very_high",
+      "map_query": "LAWSON 久太郎町三丁目店 大阪市中央区久太郎町3-4-23"
+    },
+    {
+      "time": "18:30",
+      "type": "drugstore",
+      "name_ko": "아카카베 센바 신사이바시점",
+      "name_local": "アカカベ せんば心斎橋店",
+      "phone": "06-6241-4193",
+      "evidence": "영수증 2026/09/05 18:30, 금액 ¥822",
+      "confidence": "receipt_high",
+      "map_query": "アカカベ せんば心斎橋店 大阪"
+    },
+    {
+      "time": "19:02",
+      "type": "sweets_shopping",
+      "name_ko": "이모야 킨지로 그랑프론트 오사카점",
+      "name_local": "芋舗 芋屋金次郎 グランフロント大阪店",
+      "address": "大阪府大阪市北区大深町4-1 グランフロント大阪 うめきた広場 地下1階",
+      "phone": "06-6377-7421",
+      "evidence": "영수증 2026/09/05 19:02, 금액 ¥1,550",
+      "confidence": "receipt_very_high",
+      "map_query": "芋屋金次郎 グランフロント大阪店"
+    },
+    {
+      "time": "19:39",
+      "type": "meal_snack",
+      "name_ko": "하나다코",
+      "name_local": "はなだこ",
+      "address": "大阪府大阪市北区角田町9-16",
+      "phone": "06-6361-7518",
+      "evidence": "영수증 2026/09/05 19:39, 금액 ¥1,640",
+      "confidence": "receipt_very_high",
+      "map_query": "はなだこ 大阪府大阪市北区角田町9-16"
+    },
+    {
+      "time": "20:53",
+      "type": "shopping",
+      "name_ko": "DAISO / Standard Products / THREEPPY 우메다 DT타워점",
+      "name_local": "DAISO / Standard Products / THREEPPY 梅田DTタワー店",
+      "evidence": "영수증 2026/09/05 20:53, 금액 ¥4,950",
+      "confidence": "receipt_high",
+      "map_query": "Standard Products 梅田DTタワー店"
+    },
+    {
+      "time": "22:16",
+      "type": "dinner_late",
+      "name_ko": "유카리 센니치마에점",
+      "name_local": "ゆかり 千日前店",
+      "address": "大阪市中央区千日前2-11-12",
+      "phone": "06-6647-8001",
+      "evidence": "영수증 2026/09/05 22:16, 금액 ¥6,540",
+      "confidence": "receipt_very_high",
+      "map_query": "ゆかり 千日前店 大阪市中央区千日前2-11-12"
+    },
+    {
+      "time": "22:xx",
+      "type": "hotel_return",
+      "name_ko": "KOKO HOTEL Osaka Namba — 복귀",
+      "name_local": "KOKO HOTEL 大阪なんば",
+      "evidence": "사용자 메모",
+      "confidence": "confirmed_by_user_time_approx",
+      "location": {"lat": 34.6580345, "lon": 135.5060448},
+      "map_query": "KOKO HOTEL Osaka Namba Japan",
+      "note": "유카리 센니치마에 식사 후 호텔 복귀."
+    }
+  ]
+}

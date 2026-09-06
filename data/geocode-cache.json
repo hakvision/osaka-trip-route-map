@@ -1,0 +1,86 @@
+{
+  "神戸空港 Kobe Airport": {
+    "lat": 34.6569642,
+    "lng": 135.2255426,
+    "display_name": "三菱レンタカー神戸空港店, みなと空港線, 港島九丁目, 中央区, 神戸市, 兵庫県, 650-0047, 日本",
+    "source": "nominatim"
+  },
+  "Kobe Sannomiya Station": {
+    "lat": 34.6931604,
+    "lng": 135.1928649,
+    "display_name": "神戸三宮, サンセット通り, 北長狭通一丁目, 中央区, 神戸市, 兵庫県, 650-0012, 日本",
+    "source": "nominatim"
+  },
+  "近鉄日本橋駅 大阪": {
+    "lat": 34.6669087,
+    "lng": 135.5057003,
+    "display_name": "近鉄日本橋, 千日前通, 日本橋一丁目, 中央区, 大阪市, 大阪府, 541-0071, 日本",
+    "source": "nominatim"
+  },
+  "KOKO HOTEL 大阪なんば": {
+    "lat": 34.6580345,
+    "lng": 135.5060448,
+    "display_name": "KOKO HOTEL 大阪なんば, 堺筋, 日本橋五丁目, 浪速区, 大阪市, 大阪府, 556-0004, 日本",
+    "source": "nominatim"
+  },
+  "いづも 難波 大阪": {
+    "lat": 34.7203195,
+    "lng": 135.4808956,
+    "display_name": "いづも, 大阪伊丹線, 十三本町二丁目, 淀川区, 大阪市, 大阪府, 532-0024, 日本",
+    "source": "nominatim"
+  },
+  "551蓬莱 本店 大阪市中央区難波3-6-3": {
+    "lat": 34.6654,
+    "lng": 135.5018,
+    "display_name": "551蓬莱 本店",
+    "source": "fallback"
+  },
+  "DAISO 心斎橋筋2丁目店 大阪": {
+    "lat": 34.6709,
+    "lng": 135.5015,
+    "display_name": "DAISO 心斎橋筋2丁目店",
+    "source": "fallback"
+  },
+  "ツルハドラッグ 心斎橋筋2丁目店 大阪": {
+    "lat": 34.6706426,
+    "lng": 135.5015054,
+    "display_name": "ツルハドラッグ, 心斎橋筋商店街, 心斎橋筋二丁目, 中央区, 大阪市, 大阪府, 542-0085, 日本",
+    "source": "nominatim"
+  },
+  "ローソン 久太郎町三丁目店 大阪市中央区久太郎町3-4-23": {
+    "lat": 34.6817,
+    "lng": 135.5025,
+    "display_name": "ローソン 久太郎町三丁目店",
+    "source": "fallback"
+  },
+  "アカカベ せんば心斎橋店 大阪": {
+    "lat": 34.6795,
+    "lng": 135.5017,
+    "display_name": "アカカベ せんば心斎橋店",
+    "source": "fallback"
+  },
+  "芋屋金次郎 グランフロント大阪店 大阪府大阪市北区大深町4-1": {
+    "lat": 34.7046,
+    "lng": 135.4956,
+    "display_name": "芋屋金次郎 グランフロント大阪店",
+    "source": "fallback"
+  },
+  "はなだこ 大阪府大阪市北区角田町9-16": {
+    "lat": 34.704,
+    "lng": 135.4992,
+    "display_name": "はなだこ",
+    "source": "fallback"
+  },
+  "Standard Products 梅田DTタワー店 大阪": {
+    "lat": 34.7007,
+    "lng": 135.4981,
+    "display_name": "Standard Products 梅田DTタワー店",
+    "source": "fallback"
+  },
+  "ゆかり 千日前店 大阪市中央区千日前2-11-12": {
+    "lat": 34.6657,
+    "lng": 135.5034,
+    "display_name": "ゆかり 千日前店",
+    "source": "fallback"
+  }
+}
